@@ -6,8 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 git url: 'https://github.com/sandramarta1912/admin'
-                sh git pull
-                sh cd admin
+                sh echo $PWD
                 sh './build.sh'
             }
         }
