@@ -1,9 +1,23 @@
-node {
+pipeline {
+    agent any
 
-   stage 'build'
-   git url: ''
-   sh './build.sh'
-   sh 'docker build . --no-cache'
-   sh 'docker build -t martasandra/admin:latest . '
-   sh 'docker push martasandra/admin:latest '
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                git url: 'https://github.com/sandramarta1912/admin'
+                sh './build.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
