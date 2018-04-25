@@ -4,9 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir('$GOPATH') {
+                dir('${GOPATH}') {
                     echo 'Building..'
-                    sh 'cd /var/lib/jenkins/go'
                     sh 'echo $PWD'
                     git url: 'https://github.com/sandramarta1912/admin'
                     sh 'echo $PWD'
