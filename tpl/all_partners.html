@@ -1,0 +1,41 @@
+{{define "content"}}
+<main class="col-xs-9 col-md-10 pr-sm-3 pr-md-5">
+    <h1 class="h1_style">Partners</h1>
+    <div class="col-xs-9 col-md-4 col-lg-3 col-xl-1 float-right">
+        <a href="/add" class="btn btn-md btn-secondary btn-block float-right mb-3 pl-2">Add Partner</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>SSP</th>
+                <th>DSP</th>
+                <th>Name</th>
+                <th>Timeout</th>
+                <th>URL</th>
+                <th>Method</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range .Partners.Partners}}
+            <tr>
+                <td>1</td>
+                <td>{{.IsSsp}}</td>
+                <td>{{.IsDsp}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Timeout}}</td>
+                <td>{{.URL}}</td>
+                <td>{{.Method}}</td>
+                <td>
+                    <a href="/edit/{{.Id}}"><i class="fas fa-edit" style="color: lightslategrey"></i></a>
+                    <a  href="/delete/{{.Id}}" class="deleteH" type="click" style="color: lightslategrey"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+</main>
+{{end}}

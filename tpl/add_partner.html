@@ -1,0 +1,59 @@
+{{define "content"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partners</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+        {{if not .Partner.Id}}
+            <form action="/add" method="post">
+        {{else}}
+            <form action="/edit/{{.Partner.Id}}" method="post">
+        {{end}}
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="form-col mr-3">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                {{if not .Partner.IsSsp}}
+                                        <input type="checkbox" name="is_ssp" class="form-check-input"> SSP
+                                {{else}}
+                                    <input type="checkbox" name="is_ssp" class="form-check-input" checked>
+                                    SSP
+                                {{end}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-check mb-3">
+                            <label class="form-check-label">
+                                {{if not .Partner.IsDsp}}
+                                    <input type="checkbox" name="is_dsp" class="form-check-input"> DSP
+                                {{else}}
+                                    <input type="checkbox" name="is_dsp" class="form-check-input" checked>
+                                    DSP
+                                {{end}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="form-control mb-3" name="id" placeholder="Enter ID" value="{{.Partner.Id}}">
+                <input type="text" class="form-control mb-3" name="name" placeholder="Enter Name" value="{{.Partner.Name}}">
+                <input type="text" class="form-control mb-3" name="timeout" placeholder="Enter Timeout" value="{{.Partner.Timeout}}">
+                <input type="text" class="form-control mb-3" name="url" placeholder="URL" value="{{.Partner.URL}}">
+                <input type="text" class="form-control mb-5" name="method" placeholder="Method" value="{{.Partner.Method}}">
+                <input type="submit" value="Submit" class="form-control mb-1 btn btn-success">
+                <a href="/partners" class="btn btn-primary btn-outline-secondary btn-block" role="button" aria-pressed="true">All Partners</a>
+            </div>
+        </form>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
+{{end}}
