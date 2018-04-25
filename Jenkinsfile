@@ -7,7 +7,7 @@ pipeline {
                 echo 'Building..'
                 git url: 'https://github.com/sandramarta1912/admin'
                 sh 'echo $PWD'
-                sh 'which go'
+                sh 'which go  | sed s/.*foo//'
                 sh 'echo $USER'
                 sh './build.sh'
             }
