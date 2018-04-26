@@ -7,13 +7,13 @@ pipeline {
                 echo 'Building..'
                  sh 'echo $PWD'
                  sh 'mkdir -p $PWD/go'
-                 sh 'GOPATH=$PWD/go'
-                 sh 'echo $GOPATH'
+                 sh 'env.GOPATH=$PWD/go'
+                sh 'echo ${env.GOPATH}'
                  git url: 'https://github.com/sandramarta1912/admin'
-                 sh 'mkdir -p $GOPATH/src/github.com/sandramarta1912/admin'
-                 sh 'mv * $GOPATH/src/github.com/sandramarta1912/admin'
+                 sh 'mkdir -p ${env.GOPATH}/src/github.com/sandramarta1912/admin'
+                 sh 'mv * ${env.GOPATH}/src/github.com/sandramarta1912/admin'
 
-                 dir('$GOPATH/src/github.com/sandramarta1912/admin') {
+                 dir('${env.GOPATH}/src/github.com/sandramarta1912/admin') {
                        sh 'echo $PWD'
                        sh 'go version'
                        sh './build.sh'
