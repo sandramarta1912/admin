@@ -14,7 +14,7 @@ pipeline {
                 sh "rm -rf $GOPATH/src/github.com/sandramarta1912/admin/*"
                 sh "mv ./* $GOPATH/src/github.com/sandramarta1912/admin"                 
 
-                dir('$GOPATH/src/github.com/sandramarta1912/admin') {
+                dir("$GOPATH/src/github.com/sandramarta1912/admin") {
                        sh 'echo $PWD'
                        sh 'go version'
                        sh './build.sh'
