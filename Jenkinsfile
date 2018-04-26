@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh 'echo $PWD'
                 sh 'env.GOPATH=$PWD'
                 dir('/var/lib/jenkins/workspace/pipeline-jenkins/go/src/github.com/conves/admin') {
                    git url: 'https://github.com/sandramarta1912/admin'
