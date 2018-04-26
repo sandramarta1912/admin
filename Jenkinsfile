@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building app..'
                 sh "rm -rf $GOPATH/*"
                 sh "mkdir -p $GOPATH/src/github.com/sandramarta1912/admin"
 		git url: 'https://github.com/sandramarta1912/admin'
