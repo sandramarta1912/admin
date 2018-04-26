@@ -4,17 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo $PWD'
-                sh 'echo $GOPATH'
                 echo 'Building..'
+                sh "rm -rf $GOPATH/*"
                 sh "mkdir -p $GOPATH/src/github.com/sandramarta1912/admin"
-		        git url: 'https://github.com/sandramarta1912/admin'
+		git url: 'https://github.com/sandramarta1912/admin'
                 sh "mv ./*  $GOPATH/src/github.com/sandramarta1912/admin/"                 
                 dir("$GOPATH/src/github.com/sandramarta1912/admin") {
-                       sh 'go version'
-                       sh './build.sh'
+	        	sh './build.sh'
                 }
-
             }
         }
         stage('Test') {
