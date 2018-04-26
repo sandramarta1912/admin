@@ -6,11 +6,16 @@ pipeline {
             steps {
                 echo 'Building..'
                  sh 'echo $PWD'
-                 dir('/var/lib/jenkins/workspace/pipeline-jenkins/go/src/github.com/conves/admin') {
+                 sh 'mkdir $PWD/go'
+                 sh 'env.GOPATH=$PWD/go'
+                 sh 'echo $GOPATH'
+                 git url: 'https://github.com/sandramarta1912/admin'
+                 sh 'mkdir $GOPATH/src/github.com/sandramarta1912/admin'
+                 sh 'mv * $GOPATH/src/github.com/sandramarta1912/admin'
+
+                 dir('$GOPATH/src/github.com/sandramarta1912/admin') {
                        sh 'echo $PWD'
-                       git url: 'https://github.com/sandramarta1912/admin'
                        sh 'go version'
-                       sh 'echo $GOPATH'
                        sh './build.sh'
                    }
                 }
