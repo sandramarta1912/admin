@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'env.GOPATH=$PWD'
-                dir('$GOPATH/go/src/github.com/conves/admin') {
+                dir('/var/lib/jenkins/workspace/pipeline-jenkins/go/src/github.com/conves/admin') {
                    sh 'go version'
                    sh 'echo $GOPATH'
                    sh './build.sh'
