@@ -6,8 +6,8 @@ pipeline {
             steps {
                 echo 'Building..'
                  sh 'echo $PWD'
-                 sh 'mkdir -p $PWD/go'
-                 sh 'env.GOPATH=$PWD/go'
+                 sh 'mkdir -p ${env.PWD}/go'
+                sh 'GOPATH=${env.PWD}/go'
                 sh 'echo ${env.GOPATH}'
                  git url: 'https://github.com/sandramarta1912/admin'
                  sh 'mkdir -p ${env.GOPATH}/src/github.com/sandramarta1912/admin'
