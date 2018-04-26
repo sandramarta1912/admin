@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 git url: 'https://github.com/sandramarta1912/admin'
-                sh 'echo $GOPATH'
+                sh 'echo ${env.GOPATH}'
             }
         }
         stage('Test') {
