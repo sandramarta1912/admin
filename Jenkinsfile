@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        GOPATH = '$PWD/go'
+        GOPATH = "$PWD/go"
     }
 
     stages {
