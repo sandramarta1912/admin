@@ -6,11 +6,11 @@ pipeline {
             steps {
                 echo 'Building..'
                  sh 'echo $PWD'
-                 sh 'mkdir $PWD/go'
+                 sh 'mkdir -p $PWD/go'
                  sh 'env.GOPATH=$PWD/go'
                  sh 'echo $GOPATH'
                  git url: 'https://github.com/sandramarta1912/admin'
-                 sh 'mkdir $GOPATH/src/github.com/sandramarta1912/admin'
+                 sh 'mkdir -p $GOPATH/src/github.com/sandramarta1912/admin'
                  sh 'mv * $GOPATH/src/github.com/sandramarta1912/admin'
 
                  dir('$GOPATH/src/github.com/sandramarta1912/admin') {
