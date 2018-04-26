@@ -1,12 +1,11 @@
 pipeline {
     agent any
-    
-    environment {
-        GOPATH = "$PWD/go"
-    }
 
     stages {
         stage('Build') {
+            environment {
+                GOPATH = "$PWD/go"
+            }
             steps {
                 sh 'echo $PWD'
                 sh 'echo $GOPATH'
