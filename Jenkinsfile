@@ -10,10 +10,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 git url: 'https://github.com/sandramarta1912/admin'
-                sh 'mkdir -p $GOPATH'
-                sh 'mkdir -p $GOPATH/src/github.com/sandramarta1912/admin'
-                sh 'rm -rf $GOPATH/src/github.com/sandramarta1912/admin/*'
-                sh 'mv ./* $GOPATH/src/github.com/sandramarta1912/admin'
+                sh 'echo $GOPATH'
             }
         }
         stage('Test') {
