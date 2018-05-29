@@ -42,15 +42,15 @@ func InitMySqlConn(dsn string) (*sqlx.DB, error) {
 }
 
 func main() {
-	//mysqlDsn :=  os.Getenv("MYSQL_DSN")
-	mysqlDsn := "%s:%s@tcp(%s:%s)/%s?timeout=30s&readTimeout=1s&writeTimeout=1s"
-	mysqlDsn = fmt.Sprintf(
-		mysqlDsn,
-		os.Getenv("MYSQL_ROOT"),
-		os.Getenv("MYSQL_ROOT_PASSWORD"),
-		os.Getenv("MYSQL_HOST"),
-		os.Getenv("MYSQL_PORT"),
-		os.Getenv("MYSQL_DATABASE"))
+	mysqlDsn :=  os.Getenv("MYSQL_DSN")
+	//mysqlDsn := "%s:%s@tcp(%s:%s)/%s?timeout=30s&readTimeout=1s&writeTimeout=1s"
+	//mysqlDsn = fmt.Sprintf(
+	//	mysqlDsn,
+	//	os.Getenv("MYSQL_ROOT"),
+	//	os.Getenv("MYSQL_ROOT_PASSWORD"),
+	//	os.Getenv("MYSQL_HOST"),
+	//	os.Getenv("MYSQL_PORT"),
+	//	os.Getenv("MYSQL_DATABASE"))
 
 	fmt.Printf("Initializing MySql connection to: %s\n", mysqlDsn)
 
@@ -82,7 +82,7 @@ func main() {
 	adminserver.Handle("/delete/{id:[0-9]+}", AuthMiddleware(http.HandlerFunc(DeletePartnerHandler)))
 	adminserver.Handle("/edit/{id:[0-9]+}", AuthMiddleware(http.HandlerFunc(EditPartnerHandler)))
 
-	adminserver.Handle("/users", AuthMiddleware(http.HandlerFunc(ListUsersHandler)))
+	adminserver.Handle("/managers", AuthMiddleware(http.HandlerFunc(ListManagersHandler)))
 
 	adminserver.HandleFunc("/register", RegisterHandler)
 	adminserver.HandleFunc("/login", LoginHandler)
@@ -112,11 +112,11 @@ func AuthMiddleware(h http.Handler) http.Handler {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
-		selectAUserQuery := "SELECT * FROM Users WHERE email=?"
-		var u User
-		err = ds.MySql.Get(&u, selectAUserQuery, decryptedEmail)
+		selectAManagerQuery := "SELECT * FROM Managers WHERE email=?"
+		var m Manager
+		err = ds.MySql.Get(&m, selectAManagerQuery, decryptedEmail)
 		if err != nil {
-			fmt.Printf("Error not found user:  %v \n", err)
+			fmt.Printf("Error not found manager:  %v \n", err)
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
@@ -124,7 +124,7 @@ func AuthMiddleware(h http.Handler) http.Handler {
 		rand.Seed(time.Now().UnixNano())
 		random := rand.Intn(100-0) + 0
 
-		context.Set(r, "user", u)
+		context.Set(r, "manager", m)
 		context.Set(r, "random", random)
 
 		h.ServeHTTP(w, r)

@@ -41,8 +41,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 
-		var createUserQuery = "INSERT Users SET name=?,email=?, password=?"
-		_, err = ds.MySql.Exec(createUserQuery, name, email, hashedPassword)
+		var createManagerQuery = "INSERT Managers SET name=?,email=?, password=?"
+		_, err = ds.MySql.Exec(createManagerQuery, name, email, hashedPassword)
 		if err != nil {
 			panic(err)
 		} else {
@@ -66,11 +66,11 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			execLoginTmpl(w, r)
 			return
 		}
-		selectAUserQuery := "SELECT * FROM Users WHERE email=?"
-		var u User
-		err = ds.MySql.Get(&u, selectAUserQuery, decryptedEmail)
+		selectAManagerQuery := "SELECT * FROM Managers WHERE email=?"
+		var u Manager
+		err = ds.MySql.Get(&u, selectAManagerQuery, decryptedEmail)
 		if err != nil {
-			fmt.Printf("Error not found user:  %v \n", err)
+			fmt.Printf("Error not found manager:  %v \n", err)
 			execLoginTmpl(w, r)
 			return
 		}
@@ -93,11 +93,11 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		bpassword := []byte(password)
 
-		selectAUserQuery := "SELECT * FROM Users WHERE email=?"
-		var u User
-		err = ds.MySql.Get(&u, selectAUserQuery, email)
+		selectAManagerQuery := "SELECT * FROM Managers WHERE email=?"
+		var u Manager
+		err = ds.MySql.Get(&u, selectAManagerQuery, email)
 		if err != nil {
-			fmt.Printf("Cannot get user form db %s \n",err)
+			fmt.Printf("Cannot get manager form db %s \n",err)
 			return
 		}
 

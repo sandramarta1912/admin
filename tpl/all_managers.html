@@ -1,6 +1,6 @@
 {{define "content"}}
 <main class="col-sm-9 col-md-10 pr-sm-5">
-    <h1 class="mb-3 pb-3">Users</h1>
+    <h1 class="mb-3 pb-3">Managers</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -11,7 +11,7 @@
             </tr>
             </thead>
             <tbody>
-            {{ range .Users.Users}}
+            {{ range .Managers.Managers}}
             <tr>
                 <td>1</td>
                 <td>{{.Name}}</td>

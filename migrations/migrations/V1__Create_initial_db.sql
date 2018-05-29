@@ -19,7 +19,7 @@ CREATE TABLE `admin`.`Bids` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC));
 
-CREATE TABLE `admin`.`Users` (
+CREATE TABLE `admin`.`Managers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,

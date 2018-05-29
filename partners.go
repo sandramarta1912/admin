@@ -25,39 +25,39 @@ type partnerCollection struct {
 
 type partnersData struct {
 	Random int
-	User User
+	Manager Manager
 	Partners partnerCollection
 }
 
 type partnerData struct {
 	Random int
-	User User
+	Manager Manager
 	Partner partner
 }
 
 type data struct {
 	Random int
-	User User
+	Manager Manager
 }
 
 var partnerTemplates = template.Must(template.ParseGlob("tpl/*"))
 
 func AddPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		userContext := context.Get(r, "user")
+		managerContext := context.Get(r, "manager")
 		randomContext := context.Get(r, "random")
 
 		var random int
-		var user User
+		var manager Manager
 		switch r := randomContext.(type) {
 		case int:
 			random = r
 		}
-		switch u := userContext.(type) {
-		case User:
-			user = u
+		switch u := managerContext.(type) {
+		case Manager:
+			manager = u
 		}
-		execTmpl(w, partnerData{random, user, partner{ "" , false, false , "", 0 , "", ""}}, "./tpl/add_partner.html")
+		execTmpl(w, partnerData{random, manager, partner{ "" , false, false , "", 0 , "", ""}}, "./tpl/add_partner.html")
 
 	}
 
@@ -97,7 +97,7 @@ func AddPartnerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ListPartnersHandler(w http.ResponseWriter, r *http.Request) {
-	userContext := context.Get(r, "user")
+	managerContext := context.Get(r, "manager")
 	randomContext := context.Get(r, "random")
 
 
@@ -109,18 +109,18 @@ func ListPartnersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var random int
-	var user User
+	var manager Manager
 	switch r := randomContext.(type) {
 	case int:
 		random = r
 
 	}
-	switch u := userContext.(type) {
-	case User:
-		user = u
+	switch u := managerContext.(type) {
+	case Manager:
+		manager = u
 
 	}
-	execTmpl(w, partnersData{random, user, partners}, "./tpl/all_partners.html")
+	execTmpl(w, partnersData{random, manager, partners}, "./tpl/all_partners.html")
 
 }
 func DeletePartnerHandler(w http.ResponseWriter, r *http.Request) {
@@ -136,7 +136,7 @@ func DeletePartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 func EditPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	randomContext := context.Get(r, "random")
-	userContext := context.Get(r, "user")
+	managerContext := context.Get(r, "manager")
 	id := mux.Vars(r)["id"]
 
 	selectAPartnerQuery := "SELECT * FROM Partners WHERE id=?"
@@ -144,18 +144,18 @@ func EditPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	err := ds.MySql.Get(&p, selectAPartnerQuery, id)
 	if r.Method == http.MethodGet {
 		var random int
-		var user User
+		var manager Manager
 		switch r := randomContext.(type) {
 		case int:
 			random = r
 
 		}
-		switch u := userContext.(type) {
-		case User:
-			user = u
+		switch u := managerContext.(type) {
+		case Manager:
+			manager = u
 
 		}
-		execTmpl(w, partnerData{random, user, p}, "./tpl/add_partner.html")
+		execTmpl(w, partnerData{random, manager, p}, "./tpl/add_partner.html")
 	}
 
 	if r.Method == http.MethodPost {
