@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  mysql:
+      image: mariadb:10.3
+      ports:
+        - 3306:3306
+      environment:
+        MYSQL_ROOT_HOST: "%"
+        MYSQL_ROOT: root
+        MYSQL_PORT: 3306
+        MYSQL_DATABASE: admin
+        MYSQL_ROOT_PASSWORD: cms
+
+
+  admin:
+      build: .
+      ports:
+        - 3001:3001
+      depends_on:
+        - mysql
+      links:
+        - "mysql:mysql"
+      environment:
+        MYSQL_DSN: "root:cms@tcp(mysql:3306)/admin"
+        HTTP_ADDR: ":3001"
+
+  flyway:
+      build: ./migrations
+      container_name: flyway
+      command: -url=jdbc:mariadb://mysql -schemas=admin -user=root -password=cms migrate
+      depends_on:
+        - mysql
+      restart: on-failure
