@@ -42,6 +42,7 @@ func InitMySqlConn(dsn string) (*sqlx.DB, error) {
 }
 
 func main() {
+	//mysqlDsn :=  os.Getenv("MYSQL_DSN")
 	mysqlDsn := "%s:%s@tcp(%s:%s)/%s?timeout=30s&readTimeout=1s&writeTimeout=1s"
 	mysqlDsn = fmt.Sprintf(
 		mysqlDsn,
