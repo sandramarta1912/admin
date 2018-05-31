@@ -25,10 +25,3 @@ services:
         MYSQL_DSN: "root:cms@tcp(mysql:3306)/admin"
         HTTP_ADDR: ":3001"
 
-  flyway:
-      build: ./migrations
-      container_name: flyway
-      command: -url=jdbc:mariadb://mysql -schemas=admin -user=root -password=cms migrate
-      depends_on:
-        - mysql
-      restart: on-failure
